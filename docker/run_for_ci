@@ -1,0 +1,4 @@
+#!/bin/bash
+WRKDIR=`readlink -f $(pwd)`
+docker run --rm=true -i -u="developer" --name epoll -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $(pwd)/../:/workspace/base epoll $1
+docker rm -f epoll 2>/dev/null  || true

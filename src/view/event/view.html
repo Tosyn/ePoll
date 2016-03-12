@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if event %}
+      <h2>Event Name: {{ event.name | upper }}</h2>
+      <h4><i>Description: {{event.description}}</i></h4>
+
+      <!-- polls -->
+      <div>
+        <span>Polls</span>
+        <a href="#">Create</a>
+      </div>
+      <hr />
+      <ol>
+        <li>Poll 1: <a href="#">View</a> <a href="#">Edit</a> <a href="#">Result</a> <a href="#">Delete</a></li>
+        <li>Poll 2: <a href="#">View</a> <a href="#">Edit</a> <a href="#">Result</a> <a href="#">Delete</a></li>
+      </ol>
+    {% else %}
+      {{name}} event record not found.
+    {% endif %}
+
+{% endblock %}

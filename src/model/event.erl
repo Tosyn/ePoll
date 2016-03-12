@@ -1,0 +1,2 @@
+-module(event, [Id, Name, Description]).
+-compile(export_all).

@@ -1,0 +1,29 @@
+FROM erlang:18
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y git nginx curl wget vim
+
+RUN useradd -m -d /workspace --uid ${DOCKER_DEV_UID} -s /bin/bash developer \
+    && chown -R developer:developer /workspace \
+    && adduser developer sudo
+
+WORKDIR /workspace/base
+
+# install chicago boss
+ENV CB_VERSION v0.8.19
+RUN git clone https://github.com/ChicagoBoss/ChicagoBoss.git \
+  && cd ChicagoBoss/ \
+  && git fetch --tags \
+  && git pull --tags \
+  && git checkout $CB_VERSION \
+  && make
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log \
+    && apt-get clean \
+    && apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/man/* /usr/src/*
+
+CMD nginx -g "daemon off;"
