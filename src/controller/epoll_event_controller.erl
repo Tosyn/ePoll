@@ -20,3 +20,9 @@ add('POST', []) ->
 view('GET', [Name]) ->
     Event = boss_db:find_first(event, [{name, Name}]),
     {ok, [{name, Name}, {event, Event}]}.
+
+%% test
+test('GET', []) ->
+    Events = boss_db:find(event, []),
+    %%{ok, [{title, "Event List"}, {events, Events}]}.
+    {json, [{success, true}, {message, "Hello monkey."}]}.

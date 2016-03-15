@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+  Monkey Monkey
+{% endblock %}
+
 {% block content %}
     {% if event %}
       <h2>Event Name: {{ event.name | upper }}</h2>
